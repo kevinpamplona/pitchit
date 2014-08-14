@@ -1,9 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 
-from django.contrib import admin
-admin.autodiscover()
+from pitches import views
 
 urlpatterns = patterns('',
-    url(r'^pitches/', include('pitches.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index, name='index'),
+    url(r'^(?P<pitch_id>\d+)/$', views.detail, name='detail'),
 )
