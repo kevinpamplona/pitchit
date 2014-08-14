@@ -19,6 +19,10 @@ class PitchTag(models.Model):
 	pitch_id = models.ForeignKey(Pitch)
 	tag_id = models.ForeignKey(Tag)
 
+	def __unicode__(self):
+		pitch_id_ref = self(pitch_id)
+		tag_id_ref = sel
+
 class PitchKudo(models.Model):
 	kudo = models.IntegerField();
 
