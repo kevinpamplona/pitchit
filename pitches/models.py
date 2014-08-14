@@ -18,3 +18,7 @@ class Tag(models.Model):
 class PitchTag(models.Model):
 	pitch_id = models.ForeignKey(Pitch)
 	tag_id = models.ForeignKey(Tag)
+
+class PitchKudo(models.Model):
+	kudo = models.IntegerField();
+
