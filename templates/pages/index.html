@@ -1,11 +1,67 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <title>My Home Page</title>           
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" media="screen" />
- 
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/script.js"></script>
+
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+
 </head>
+
 <body>
-<p>My Content</p>    
+
+	<h1>PitchIt</h1>
+	<div id = "submit-form">
+		<div class="submission-box"><input id = "input" placeholder="Let's have a hackathon!"></div>
+		<div class="submission-box"><input id = "body"placeholder="We should have hackathon for the entire company!"></div>
+		<button type="button">Submission</button>
+
+	</div>
+
+	<div class="table">
+            <div class="testing"><div class="row-title">Dodgeball Tournament!</div></div>
+            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+    </div>
+
+    <div class="table">
+            <div class="testing"><div class="row-title">Aparna's Day!</div></div>
+            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+    </div>
+
+    	<div class="table">
+            <div class="testing"><div class="row-title">Let's all get Green Bubble!</div></div>
+            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+    </div>
+
+    	<div class="table">
+            <div class="testing"><div class="row-title">Shady Kevin's Event</div></div>
+            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+    </div>
+
+    	<h2>Pitch It with a 'P'</h2>
+
+
+    <script>
+	$( ".testing" )
+	  .filter( ":odd" )
+	    .hide()
+	  .end()
+	  .filter( ":even" )
+	    .hover(function() {
+	      $( this )
+	        .toggleClass( "active" )
+	        .next()
+	          .stop( true, true )
+	          .slideToggle();
+	    });
+
+
+
+	</script>
+
+
+
+
 </body>
 </html>
