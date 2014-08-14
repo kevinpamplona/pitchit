@@ -1,0 +1,62 @@
+body {
+	text-align:center;
+	font-family: 'Lato', sans-serif;
+}
+
+h1 {
+	font-size: 70px;
+}
+
+h2 {
+	font-size: 10px;
+	margin-top: 70px;
+	margin-bottom: 70px;
+}
+
+
+input#input {
+    font-size: 20px;
+    width: 700px;
+    padding: 10px;
+    border-color: orange;
+
+}
+
+input#body {
+    font-size: 20px;
+    width: 700px;
+    padding: 10px;
+    border-color: orange;
+    height: 100px;
+}
+
+.row-title {
+    font-size: 20px;
+    margin-top: 30px;
+    background-color: orange;
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 100px;
+    height: 40px;
+    padding-top: 20px;
+    text-align: left;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.submission-box {
+    margin-bottom: 20px;
+}
+
+
+button {
+    width: 100px;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.row-description {
+    width: 700px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
