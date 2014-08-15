@@ -68,19 +68,6 @@
 
 
     <script>
-	$( ".row" )
-	  .filter( ":odd" )
-	    .hide()
-	  .end()
-	  .filter( ":even" )
-	    .hover(function() {
-	      $( this )
-	        .toggleClass( "active" )
-	        .next()
-	          .stop( true, true )
-	          .slideToggle();
-	    });
-
 	  $( ".otherheart").hide();
 	  $ (" .number").hide();
 
@@ -186,12 +173,25 @@
 
 			addPitch(id, kudos, title, description);
 		}
+
+		$( ".row" )
+	  .filter( ":odd" )
+	    .hide()
+	  .end()
+	  .filter( ":even" )
+	    .hover(function() {
+	      $( this )
+	        .toggleClass( "active" )
+	        .next()
+	          .stop( true, true )
+	          .slideToggle();
+	    });
 	}
 
 	function addPitch(pitchid, kudos, title, description) {
 		var elementId = 'heart' + pitchid;
 		var kudoId = 'kudo' + pitchid;
-		$("<div class=table pitchid=" + pitchid + "><div class=row><div class=row-title><img class=heart src=/assets/images/blackheart.png id=" + elementId + " onclick='changeImage(" + pitchid + ")'><div id=" + kudoId + " class=number>" + kudos + "</div>" + title + "</div></div><div class=row style=display:none;><div class=row-description>" + description + "</div></div></div>").appendTo('#allpitches');
+		$("<div class=table pitchid=" + pitchid + "><div class=row><div class=row-title><img class=heart src=/assets/images/blackheart.png id=" + elementId + " onclick='changeImage(" + pitchid + ")'><div id=" + kudoId + " class=number>" + kudos + "</div>" + title + "</div></div><div class=row><div class=row-description>" + description + "</div></div></div>").appendTo('#allpitches');
 	}
 
 	function changeImage(pitchid) {
