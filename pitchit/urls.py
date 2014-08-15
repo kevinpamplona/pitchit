@@ -15,5 +15,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'pages.views.index'),
     url(r'^pitches/', include('pitches.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^assets/stylesheets/style.css', 'pages.views.stylesheet'),
+    # url(r'^assets/stylesheets/style.css', 'pages.views.stylesheet'),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_URL}),
+    url(r'^assets/', 'static_pages.views.static_asset'),
 )

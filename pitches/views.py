@@ -47,6 +47,7 @@ class RenderView(View):
 	def post(self, request, *args, **kwargs):
 		print request.body
 		data_in = json.loads(request.body)
+		# data_in = json.loads(request.body.replace("\'", '"'))
 
 		if request.path == '/pitches/post':
 			pitch = data_in['pitch']

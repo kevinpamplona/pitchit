@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
+	
 	<script type="text/javascript" src="js/script.js"></script>
 
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
@@ -14,20 +16,19 @@
 
 	<h1>PitchIt</h1>
 	<div id = "submit-form">
-		<div class="submission-box"><input id="title" placeholder="TITLE"></div>
-		<div class="submission-box"><textarea id="description" placeholder=" DESCRIPTION"></textarea>
-		<br><button id="submit" type="button">SUBMIT</button>
+
+		<div class="submission-box"><input id = "pitchtitle" placeholder="TITLE"></div>
+		<div class="submission-box"><textarea id = "pitchbody"placeholder=" DESCRIPTION"></textarea>
+		<br><button type="button">SUBMIT</button>
 	
 	</div>
 
 	</div>
 
 <div id="pitches_list">
-
 </div>
 
-
-    	<h2>Pitch It with a 'P'. Made with love, sweat, and boba by Team Chocolate.</h2>
+<h2>Pitch It with a 'P'. Made with love, sweat, and boba by Team Chocolate.</h2>
 
 
     <script>
@@ -45,24 +46,23 @@
 	    });
 
 	  $( ".otherheart").hide();
+	  $ (" .number").hide();
 
 
 	$( ".heart" ).click(function() {
 	  $( ".heart").hide();
 	  $(".otherheart").show();
+	  $(".number").show();
+
 	});
 
 	$( ".otherheart" ).click(function() {
 	  $( ".otherheart").hide();
 	  $(".heart").show();
+	  $(".number").hide();
+
 	});
 
-
-
-	</script>
-
-
-    <script>
 	$( ".testing" )
 	  .filter( ":odd" )
 	    .hide()
@@ -150,14 +150,34 @@
 	  	});
 	});
 
+	$("button").click(function() {
+		submit_pitch();
+	});
 
+	function submit_pitch(){
+		var textdescription = document.getElementById("pitchbody").value;
+		var texttitle = document.getElementById("pitchtitle").value;
+		json_request('/pitches/post', 
+					 {'pitch': textdescription}, 
+					 function(data) {},
+					 function(xhr, status, error) {}
+					)
+	 };
 
+	 function json_request(page, dict, success, failure) {
+	  $.ajax({
+	    type: 'POST',
+	    url: page,
+	    data: JSON.stringify(dict),
+	    contentType: "application/json",
+	    dataType: "json",
+	    success: success,
+	    error: failure
+	  });
+	}
 
 
 	</script>
-
-
-
 
 </body>
 </html>
