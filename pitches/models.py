@@ -33,11 +33,25 @@ class PitchesModel:
 		count = pitch.kudos
 		pitch.kudos += 1
 		pitch.save()
-		return count
+		return pitch.kudos
+
+	def decrease(self, pitch_id):
+		try:
+			pitch = Pitch.objects.get(pk=pitch_id)
+		except DoesNotExist:
+			return null
+		count = pitch.kudos
+		pitch.kudos -= 1
+		pitch.save()
+		return pitch.kudos
 
 	def get_pitches(self):
-		pitches = Pitch.objects.values_list('id','title', 'description', 'author', 'date', 'kudos')
+		pitches = Pitch.objects.values_list('id','title', 'description', 'author', 'kudos')
 		return pitches
+
+	def top_pitches(self):
+		top = Pitch.objects.order_by('-kudos')
+		return top
 
 
 pitch_pitches = PitchesModel()

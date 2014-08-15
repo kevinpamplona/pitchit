@@ -12,9 +12,10 @@
 
 </head>
 
-<body>
+<body onload="loadAllPitches()">
 
 	<h1>PitchIt</h1>
+	<h2>making TubeMogul a better place to work, one pitch at a time</h2>
 	<div id = "submit-form">
 		<div class="submission-box"><input id = "pitchtitle" placeholder="TITLE"></div>
 		<div class="submission-box"><textarea id = "pitchbody"placeholder=" DESCRIPTION"></textarea>
@@ -24,31 +25,46 @@
 
 	</div>
 
-	<div class="table">
+	<div id="allpitches">
+
+	<!-- <div class="table" pitchid=0>
             <div class="row"><div class="row-title">
             	<img class= "heart" src="/assets/images/blackheart.png">
             	<img class="otherheart" src="/assets/images/pinkheart.png"> <div class="number">42</div>DODGEBALL TOURNAMENT</div></div> 
 
 
-            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-description">We should have dodgeball tournaments every month!</div></div>
     </div>
 
-    <div class="table">
+    <div class="table" pitchid=1>
             <div class="row"><div class="row-title"><img class= "heart" src="/assets/images/blackheart.png"><img class="otherheart" src="/assets/images/pinkheart.png"> LET'S GO GET GREEN BUBBLE</div></div>
-            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-description">Can we have a recycling bin everywhere?</div></div>
     </div>
 
-    	<div class="table">
+    	<div class="table" pitchid=2>
             <div class="row"><div class="row-title"><img class= "heart" src="/assets/images/blackheart.png"><img class="otherheart" src="/assets/images/pinkheart.png"> KEGERNATOR</div></div>
-            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-description">Cheaper, right?</div></div>
     </div>
 
-    	<div class="table">
-            <div class="row"><div class="row-title"><img class= "heart" src="/assets/images/blackheart.png"><img class="otherheart" src="/assets/images/pinkheart.png"> VOLUNTEER DAY!</div></div>
-            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
-    </div>
+    <div class="table" pitchid=3>
+        <div class="row">
+        	<div class="row-title">
+        		<img class= "heart" src="/assets/images/blackheart.png">
+        		<img class="otherheart" src="/assets/images/pinkheart.png"> 
+        			VOLUNTEER DAY!</div>
+        	</div>
+            <div class="row">
+            	<div class="row-description">
+            		Are there places we can volunteer too?
+            	</div>
+            </div>
+    </div> -->
 
-    	<h2>Pitch It with a 'P'. Made with love, sweat, and boba by Team Chocolate.</h2>
+
+	</div>
+
+    		<h2>quit your bitchin, just pitchit</h2>
+
 
 
     <script>
@@ -87,15 +103,47 @@
 		submit_pitch();
 	});
 
+	function updateKudo(pitchid, kudo) {
+		var kudoId = 'kudo' + pitchid;
+		document.getElementById(kudoId).innerHTML = kudo;
+	}
+
 	function submit_pitch(){
 		var textdescription = document.getElementById("pitchbody").value;
 		var texttitle = document.getElementById("pitchtitle").value;
 		json_request('/pitches/post', 
 					 {'title': texttitle, 'description':textdescription }, 
-					 function(data) {},
+					 function(data) {
+					 	description = document.getElementById("pitchbody").value;
+					 	title = document.getElementById("pitchtitle").value;
+					 	document.getElementById("pitchbody").value = "";
+					 	document.getElementById("pitchtitle").value = "";
+					 	addPitch(data.pitchid, 0, title, description);
+					 },
 					 function(xhr, status, error) {}
 					)
+
 	 };
+
+	 function give_kudo(pitchid) {
+	 	json_request('/pitches/kudos/post',
+	 				 {'pitch_id': pitchid},
+	 				 function(data) {
+	 				 	updateKudo(pitchid, data.kudo);
+	 				 } ,
+	 				 function(xhr, status, error){}
+	 				);
+	 }
+
+	 function take_kudo(pitchid) {
+	 	json_request('/pitches/kudos/take',
+	 				 {'pitch_id': pitchid},
+	 				 function(data) {
+	 				 	updateKudo(pitchid, data.kudo);
+	 				 } ,
+	 				 function(xhr, status, error){}
+	 				);
+	 }
 
 	 function json_request(page, dict, success, failure) {
 	  $.ajax({
@@ -109,6 +157,58 @@
 	  });
 	}
 
+	function json_get(page, success, failure) {
+	  $.ajax({
+	    type: 'GET',
+	    url: page,
+	    success: success,
+	    error: failure
+	  });
+	}
+
+	function loadAllPitches() {
+		json_get('/pitches/get',
+				 function(data){
+				 	renderAllPitches(data.pitches);
+				 },
+				 function(xhr, status, error){}
+				);
+	}
+
+	function renderAllPitches(allPitches) {
+		for (var i = 0; i < allPitches.length; i++) {
+			var pitch = allPitches[i];
+			var author = pitch.author;
+			var description = pitch.description;
+			var kudos = pitch.kudos;
+			var id = pitch.id;
+			var title = pitch.title;
+
+			addPitch(id, kudos, title, description);
+		}
+	}
+
+	function addPitch(pitchid, kudos, title, description) {
+		var elementId = 'heart' + pitchid;
+		var kudoId = 'kudo' + pitchid;
+		$("<div class=table pitchid=" + pitchid + "><div class=row><div class=row-title><img class=heart src=/assets/images/blackheart.png id=" + elementId + " onclick='changeImage(" + pitchid + ")'><div id=" + kudoId + " class=number>" + kudos + "</div>" + title + "</div></div><div class=row style=display:none;><div class=row-description>" + description + "</div></div></div>").appendTo('#allpitches');
+	}
+
+	function changeImage(pitchid) {
+		var elementId = 'heart' + pitchid;
+		var path = document.getElementById(elementId).src;
+		if (path.indexOf("blackheart") > -1) 
+        {
+            document.getElementById(elementId).src = "/assets/images/pinkheart.png";
+             give_kudo(pitchid);
+        }
+        else 
+        {
+            document.getElementById(elementId).src = "/assets/images/blackheart.png";
+            take_kudo(pitchid);
+        }
+       
+	}
 
 	</script>
 

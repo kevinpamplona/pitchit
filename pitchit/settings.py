@@ -95,5 +95,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'kevinpamplona@gmail.com'
+EMAIL_HOST_PASSWORD = 'scr17pow'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 # MEDIA_URL = '/static/'
 # ADMIN_MEDIA_PREFIX = '/media/'
