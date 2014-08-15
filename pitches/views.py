@@ -21,17 +21,18 @@ class RenderView(View):
 		#data_in = json.loads(request.body)
 		if request.path == '/pitches/get':
 			pitches_list = models.pitch_pitches.get_pitches()
-			print pitches_list
 		
 		pitches_data = []
 		
 		for pitch in pitches_list:
 			# pitch = ['pitch', 'author', 'date', 'kudos']
 			pitch_dict = {}
-			pitch_dict['pitch'] = pitch[0]
-			pitch_dict['author'] = pitch[1]
-			pitch_dict['date'] = str(pitch[2])
-			pitch_dict['kudos'] = pitch[3]
+			pitch_dict['id'] = pitch[0]
+			pitch_dict['title'] = pitch[1]
+			pitch_dict['description'] = pitch[2]
+			pitch_dict['author'] = str(pitch[3])
+			pitch_dict['date'] = pitch[4]
+			itch_dict['kudos'] = pitch[5]
 
 			pitches_data.append(pitch_dict)
 
@@ -49,8 +50,9 @@ class RenderView(View):
 		# data_in = json.loads(request.body.replace("\'", '"'))
 
 		if request.path == '/pitches/post':
-			pitch = data_in['pitch']
-			pitch_id = models.pitch_pitches.render(pitch)
+			title = data_in['title']
+			description = data_in['description']
+			pitch_id = models.pitch_pitches.render(title, description)
 			response = {"pitchid" : pitch_id}
 			j_resp = json.dumps(response)
 			return HttpResponse(content=j_resp, content_type='application/json', status=200)
