@@ -14,8 +14,8 @@
 
 	<h1>PitchIt</h1>
 	<div id = "submit-form">
-		<div class="submission-box"><input id = "input" placeholder="TITLE"></div>
-		<div class="submission-box"><textarea id = "body"placeholder=" DESCRIPTION"></textarea>
+		<div class="submission-box"><input id = "pitchtitle" placeholder="TITLE"></div>
+		<div class="submission-box"><textarea id = "pitchbody"placeholder=" DESCRIPTION"></textarea>
 		<br><button type="button">SUBMIT</button>
 	
 	</div>
@@ -81,13 +81,34 @@
 
 	});
 
+	$("button").click(function() {
+		submit_pitch();
+	});
+
+	function submit_pitch(){
+		var textdescription = document.getElementById("pitchbody").value;
+		var texttitle = document.getElementById("pitchtitle").value;
+		json_request('/pitches/post', 
+					 {'pitch': textdescription}, 
+					 function(data) {},
+					 function(xhr, status, error) {}
+					)
+	 };
+
+	 function json_request(page, dict, success, failure) {
+	  $.ajax({
+	    type: 'POST',
+	    url: page,
+	    data: JSON.stringify(dict),
+	    contentType: "application/json",
+	    dataType: "json",
+	    success: success,
+	    error: failure
+	  });
+	}
+
 
 	</script>
-
-
-
-
-
 
 </body>
 </html>
