@@ -1,11 +1,28 @@
 body {
 	text-align:center;
-	font-family: 'Lato', sans-serif;
+	font-family: 'Roboto','Lato', sans-serif;
+    background-color: #eef3fa;
 }
 
-h1 {
-	font-size: 70px;
+img {
+    width: 400px;
 }
+
+button {
+    font-family: 'Roboto', sans-serif;
+    margin-left: 600px;
+    background-color: #0ea5e4;
+    border: none;
+
+}
+
+.heart {
+    width:40px;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 350px;
+
+} 
 
 h2 {
 	font-size: 10px;
@@ -16,9 +33,19 @@ h2 {
 
 input#input {
     font-size: 20px;
-    width: 700px;
+    width: 680px;
+    border: none;
     padding: 10px;
-    border-color: orange;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+textarea#body {
+    width: 700px;
+    height: 100px;
+    font-size: 20px;
+    border: none;
+    font-family: 'Roboto', sans-serif;
 
 }
 
@@ -26,17 +53,17 @@ input#body {
     font-size: 20px;
     width: 700px;
     padding: 10px;
-    border-color: orange;
+    border-color:  #0ea5e4;
     height: 100px;
 }
 
 .row-title {
     font-size: 20px;
     margin-top: 30px;
-    background-color: orange;
+    background-color: white;
     width: 800px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 30px;
     height: 40px;
     padding-top: 20px;
     text-align: left;
@@ -60,3 +87,5 @@ button {
     margin: 0 auto;
     margin-top: 10px;
 }
+
+
