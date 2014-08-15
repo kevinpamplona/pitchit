@@ -64,18 +64,22 @@
 	    });
 
 	  $( ".otherheart").hide();
+	  $ (" .number").hide();
 
 
 	$( ".heart" ).click(function() {
 	  $( ".heart").hide();
 	  $(".otherheart").show();
+	  $(".number").show();
+
 	});
 
 	$( ".otherheart" ).click(function() {
 	  $( ".otherheart").hide();
 	  $(".heart").show();
-	});
+	  $(".number").hide();
 
+	});
 
 
 	</script>
