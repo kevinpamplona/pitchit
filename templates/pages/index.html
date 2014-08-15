@@ -3,9 +3,7 @@
 <head>
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
 	<link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
-	
 	<script type="text/javascript" src="js/script.js"></script>
 
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
@@ -31,50 +29,95 @@
 <h2>Pitch It with a 'P'. Made with love, sweat, and boba by Team Chocolate.</h2>
 
 
-    <script>
-	$( ".row" )
-	  .filter( ":odd" )
-	    .hide()
-	  .end()
-	  .filter( ":even" )
-	    .hover(function() {
-	      $( this )
-	        .toggleClass( "active" )
-	        .next()
-	          .stop( true, true )
-	          .slideToggle();
-	    });
+	<script>
+		$(document).ready(function(){
+			var dict = {}
+			$.ajax({
+		    	type: 'GET',
+		    	url: "http://127.0.0.1:8000/pitches/get",
+		    	success: function(response){
+		    		console.log(response);
+		    		var data_list = response["pitches"];
+		    		console.log(data_list);
+		    		var pitches_list = document.getElementById("pitches_list");
+		    		for(i=0; i < data_list.length; i++) {
+		    			var data = data_list[i];
+		    			var table = document.createElement("div");
+		    			table.setAttribute("class", "table");
+		    			table.setAttribute("pitch_id", data["id"]);
+		    			pitches_list.appendChild(table);
 
-	  $( ".otherheart").hide();
-	  $ (" .number").hide();
+		    			var row_title = document.createElement("div");
+		    			row_title.setAttribute("class", "row-title");
+
+		    			var heart = document.createElement("img");
+		    			heart.setAttribute("class", "heart");
+		    			heart.setAttribute("src", "blackheart.png");
+
+		    			var otherheart = document.createElement("img");
+		    			heart.setAttribute("class", "otherheart");
+		    			heart.setAttribute("src", "pinkheart.png");
+
+		    			var number = document.createElement("div");
+		    			number.setAttribute("class", "number");
+		    			number.innerHTML = data["kudos"];
+
+		    			row_title.appendChild(heart);
+		    			row_title.appendChild(otherheart);
+		    			row_title.appendChild(number);
+
+		    			var row_description = document.createElement("div");
+		    			row_description.setAttribute("class", "row-description");
+		    			row_description.innerHTML = data["pitch"];
+
+		    			table.appendChild(row_title);
+		    			table.appendChild(row_description);
+
+		    		}
+		    	},
+		    	error: function(response){
+		    		console.log(response);
+		    	}
+		  	});
+		});
+
+		$(".row-description").hide();
+
+		$(".row-title").click(function(){
+			$(".row-description").slideToggle();
+		});
 
 
-	$( ".heart" ).click(function() {
-	  $( ".heart").hide();
-	  $(".otherheart").show();
-	  $(".number").show();
 
-	});
+		$( ".otherheart").hide();
+		$ (" .number").hide();
 
-	$( ".otherheart" ).click(function() {
-	  $( ".otherheart").hide();
-	  $(".heart").show();
-	  $(".number").hide();
 
-	});
+		$( ".heart" ).click(function() {
+			$( ".heart").hide();
+			$(".otherheart").show();
+			$(".number").show();
+		});
 
-	$( ".testing" )
-	  .filter( ":odd" )
-	    .hide()
-	  .end()
-	  .filter( ":even" )
-	    .hover(function() {
-	      $( this )
-	        .toggleClass( "active" )
-	        .next()
-	          .stop( true, true )
-	          .slideToggle();
-	    });
+		$( ".otherheart" ).click(function() {
+		  $( ".otherheart").hide();
+		  $(".heart").show();
+		  $(".number").hide();
+
+		});
+
+		$( ".testing" )
+			.filter( ":odd" )
+			.hide()
+			.end()
+			.filter( ":even" )
+			.hover(function() {
+				$( this )
+				.toggleClass( "active" )
+				.next()
+				.stop( true, true )
+				.slideToggle();
+		});
 
 	function json_request(page, dict, success, failure) {
 		$.ajax({
@@ -90,65 +133,16 @@
 
 	function post_pitch() {
 		json_request( "http://localhost:8000/pitches/post", 
-    		{ "pitch":"this is a pitch" }, 
-    		function(data) { 
-        		$(".testing").hide();
-    		}, 
-    		function(xhr, status, error) { 
-        		$(".testing").css("background-color", "red");
-      		});
+			{ "pitch":"this is a pitch" }, 
+			function(data) { 
+	    		$(".testing").hide();
+			}, 
+			function(xhr, status, error) { 
+	    		$(".testing").css("background-color", "red");
+	  		});
 	}
 
-	$(document).ready(function(){
-		var dict = {}
-		$.ajax({
-	    	type: 'GET',
-	    	url: "http://127.0.0.1:8000/pitches/get",
-	    	success: function(response){
-	    		console.log(response);
-	    		var data_list = response["pitches"];
-	    		console.log(data_list);
-	    		var pitches_list = document.getElementById("pitches_list");
-	    		for(i=0; i < data_list.length; i++) {
-	    			var data = data_list[i];
-	    			var table = document.createElement("div");
-	    			table.setAttribute("class", "table");
-	    			table.setAttribute("pitch_id", data["id"]);
-	    			pitches_list.appendChild(table);
 
-	    			var row_title = document.createElement("div");
-	    			row_title.setAttribute("class", "row-title")
-
-	    			var heart = document.createElement("img")
-	    			heart.setAttribute("class", "heart")
-	    			heart.setAttribute("src", "blackheart.png")
-
-	    			var otherheart = document.createElement("img")
-	    			heart.setAttribute("class", "otherheart")
-	    			heart.setAttribute("src", "pinkheart.png")
-
-	    			var number = document.createElement("div")
-	    			number.setAttribute("class", "number")
-	    			number.innerHTML = data["kudos"]
-
-	    			row_title.appendChild(heart)
-	    			row_title.appendChild(otherheart)
-	    			row_title.appendChild(number)
-
-	    			var row_description = document.createElement("div");
-	    			row_description.setAttribute("class", "row-description")
-	    			row_description.innerHTML = data["pitch"]
-
-	    			table.appendChild(row_title)
-	    			table.appendChild(row_description)
-
-	    		}
-	    	},
-	    	error: function(response){
-	    		console.log(response)
-	    	}
-	  	});
-	});
 
 	$("button").click(function() {
 		submit_pitch();
@@ -164,17 +158,7 @@
 					)
 	 };
 
-	 function json_request(page, dict, success, failure) {
-	  $.ajax({
-	    type: 'POST',
-	    url: page,
-	    data: JSON.stringify(dict),
-	    contentType: "application/json",
-	    dataType: "json",
-	    success: success,
-	    error: failure
-	  });
-	}
+
 
 
 	</script>

@@ -38,6 +38,7 @@ class PitchesModel:
 	def get_pitches(self):
 
 		pitches = Pitch.objects.values_list('id', 'title', 'description', 'author', 'date', 'kudos')
+		print pitches
 		return pitches
 
 
