@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="js/script.js"></script>
 
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+
 </head>
 
 <body>
 
-	<img src="logo.png">
+	<h1>PitchIt</h1>
 	<div id = "submit-form">
 		<div class="submission-box"><input id = "input" placeholder="TITLE"></div>
 		<div class="submission-box"><textarea id = "body"placeholder=" DESCRIPTION"></textarea>
-
-		<button type="button">Submission</button>
-		<button type="button" id="testBtn">Test</button>
+		<br><button type="button">SUBMIT</button>
+	
+	</div>
 
 	</div>
 
 	<div class="table">
-		    <img class= "heart" src="blackheart.png"></div>
+            <div class="row"><div class="row-title">
+            	<img class= "heart" src="blackheart.png">
+            	<img class="otherheart" src="pinkheart.png"> <div class="number">42</div>DODGEBALL TOURNAMENT</div></div> 
 
-            <div class="testing"><div class="row-title">DODGEBALL TOURNAMENT</div></div>
 
-            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
     </div>
 
     <div class="table">
-            <div class="testing"><div class="row-title">LET'S GO GET GREEN BUBBLE</div></div>
-            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-title"><img class= "heart" src="blackheart.png"><img class="otherheart" src="pinkheart.png"> LET'S GO GET GREEN BUBBLE</div></div>
+            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
     </div>
 
     	<div class="table">
-            <div class="testing"><div class="row-title">KEGERNATOR</div></div>
-            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-title"><img class= "heart" src="blackheart.png"><img class="otherheart" src="pinkheart.png"> KEGERNATOR</div></div>
+            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
     </div>
 
     	<div class="table">
-            <div class="testing"><div class="row-title">VOLUNTEER DAY!</div></div>
-            <div class="testing"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
+            <div class="row"><div class="row-title"><img class= "heart" src="blackheart.png"><img class="otherheart" src="pinkheart.png"> VOLUNTEER DAY!</div></div>
+            <div class="row"><div class="row-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div></div>
     </div>
 
-    	<h2>Pitch It with a 'P'</h2>
+    	<h2>Pitch It with a 'P'. Made with love, sweat, and boba by Team Chocolate.</h2>
 
 
     <script>
-	$( ".testing" )
+	$( ".row" )
 	  .filter( ":odd" )
 	    .hide()
 	  .end()
@@ -63,35 +63,26 @@
 	          .slideToggle();
 	    });
 
-	function json_request(page, dict, success, failure) {
-		$.ajax({
-	    	type: 'POST',
-	    	url: page,
-	    	data: JSON.stringify(dict),
-	    	contentType: "application/json",
-	    	dataType: "json",
-	    	success: success,
-	    	error: failure
-	  	});
-	}
+	  $( ".otherheart").hide();
 
-	function post_pitch() {
-		json_request( "http://localhost:8000/pitches/post", 
-    		{ "pitch":"this is a pitch" }, 
-    		function(data) { 
-        		$(".testing").hide();
-    		}, 
-    		function(xhr, status, error) { 
-        		$(".testing").css("background-color", "red");
-      		});
-	}
 
-	$(document).ready(function(){
-		$("#testBtn").click(post_pitch);
+	$( ".heart" ).click(function() {
+	  $( ".heart").hide();
+	  $(".otherheart").show();
+	});
+
+	$( ".otherheart" ).click(function() {
+	  $( ".otherheart").hide();
+	  $(".heart").show();
 	});
 
 
+
 	</script>
+
+
+
+
 
 
 </body>
