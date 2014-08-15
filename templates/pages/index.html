@@ -158,7 +158,7 @@
 		var textdescription = document.getElementById("pitchbody").value;
 		var texttitle = document.getElementById("pitchtitle").value;
 		json_request('/pitches/post', 
-					 {'pitch': textdescription}, 
+					 {'title': texttitle, 'description':textdescription }, 
 					 function(data) {},
 					 function(xhr, status, error) {}
 					)
