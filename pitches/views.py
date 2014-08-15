@@ -28,10 +28,11 @@ class RenderView(View):
 		for pitch in pitches_list:
 			# pitch = ['pitch', 'author', 'date', 'kudos']
 			pitch_dict = {}
-			pitch_dict['pitch'] = pitch[0]
-			pitch_dict['author'] = pitch[1]
-			pitch_dict['date'] = str(pitch[2])
-			pitch_dict['kudos'] = pitch[3]
+			pitch_dict['id'] = pitch[0]
+			pitch_dict['pitch'] = pitch[1]
+			pitch_dict['author'] = pitch[2]
+			pitch_dict['date'] = str(pitch[3])
+			pitch_dict['kudos'] = pitch[4]
 
 			pitches_data.append(pitch_dict)
 
