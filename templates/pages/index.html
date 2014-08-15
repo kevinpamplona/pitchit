@@ -16,6 +16,7 @@
 		<div class="submission-box"><input id = "input" placeholder="Let's have a hackathon!"></div>
 		<div class="submission-box"><input id = "body"placeholder="We should have hackathon for the entire company!"></div>
 		<button type="button">Submission</button>
+		<button type="button" id="testBtn">Test</button>
 
 	</div>
 
@@ -56,7 +57,32 @@
 	          .slideToggle();
 	    });
 
+	function json_request(page, dict, success, failure) {
+		$.ajax({
+	    	type: 'POST',
+	    	url: page,
+	    	data: JSON.stringify(dict),
+	    	contentType: "application/json",
+	    	dataType: "json",
+	    	success: success,
+	    	error: failure
+	  	});
+	}
 
+	function post_pitch() {
+		json_request( "http://localhost:8000/pitches/post", 
+    		{ "pitch":"this is a pitch" }, 
+    		function(data) { 
+        		$(".testing").hide();
+    		}, 
+    		function(xhr, status, error) { 
+        		$(".testing").css("background-color", "red");
+      		});
+	}
+
+	$(document).ready(function(){
+		$("#testBtn").click(post_pitch);
+	});
 
 	</script>
 
