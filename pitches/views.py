@@ -39,7 +39,6 @@ class RenderView(View):
 		#data_in = json.loads(request.body)
 		if request.path == '/pitches/get':
 			pitches_list = models.pitch_pitches.get_pitches()
-		
 		pitches_data = []
 		
 		for pitch in pitches_list:
@@ -59,7 +58,7 @@ class RenderView(View):
 
 
 		j_resp = json.dumps(pitches_data_out)
-
+		print j_resp
 		return HttpResponse(content=j_resp, content_type='application/json', status=200)
 
 	def post(self, request, *args, **kwargs):
