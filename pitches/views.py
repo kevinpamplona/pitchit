@@ -18,12 +18,34 @@ def detail(request, pitch_id):
 
 class RenderView(View):
 	def get(self, request, *args, **kwargs):
-		assert False;
+		#data_in = json.loads(request.body)
+		if request.path == '/pitches/get':
+			pitches_list = models.pitch_pitches.get_pitches()
+			print pitches_list
+		
+		pitches_data = []
+		
+		for pitch in pitches_list:
+			# pitch = ['pitch', 'author', 'date', 'kudos']
+			pitch_dict = {}
+			pitch_dict['pitch'] = pitch[0]
+			pitch_dict['author'] = pitch[1]
+			pitch_dict['date'] = str(pitch[2])
+			pitch_dict['kudos'] = pitch[3]
+
+			pitches_data.append(pitch_dict)
+
+		pitches_data_out = {}
+		pitches_data_out['pitches'] = pitches_data
+
+
+		j_resp = json.dumps(pitches_data_out)
+
+		return HttpResponse(content=j_resp, content_type='application/json', status=200)
 
 	def post(self, request, *args, **kwargs):
 		print request.body
 		data_in = json.loads(request.body)
-
 
 		if request.path == '/pitches/post':
 			pitch = data_in['pitch']

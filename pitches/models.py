@@ -34,6 +34,9 @@ class PitchesModel:
 		pitch.save()
 		return count
 
+	def get_pitches(self):
+		pitches = Pitch.objects.values_list('pitch', 'author', 'date', 'kudos')
+		return pitches
 
 
 pitch_pitches = PitchesModel()
