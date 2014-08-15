@@ -23,12 +23,17 @@ class RenderView(View):
 	def post(self, request, *args, **kwargs):
 		print request.body
 		data_in = json.loads(request.body)
-		pitch = data_in['pitch']
+
 
 		if request.path == '/pitches/post':
+			pitch = data_in['pitch']
 			pitch_id = models.pitch_pitches.render(pitch)
 			response = {"pitchid" : pitch_id}
 			j_resp = json.dumps(response)
 			return HttpResponse(content=j_resp, content_type='application/json', status=200)
+		elif request.path == '/pitches/kudos/post':
+			pitch_id = data_in['pitch_id']
+			models.pitch_pitches.increase(pitch_id)
+			return HttpResponse(status=200)
 		else:
 			assert False 

@@ -24,4 +24,16 @@ class PitchesModel:
 		rendered_pitch.save()
 		return rendered_pitch.pk
 
+	def increase(self, pitch_id):
+		try:
+			pitch = Pitch.objects.get(pk=pitch_id)
+		except DoesNotExist:
+			return null
+		count = pitch.kudos
+		pitch.kudos += 1
+		pitch.save()
+		return count
+
+
+
 pitch_pitches = PitchesModel()
